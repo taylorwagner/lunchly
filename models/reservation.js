@@ -38,14 +38,32 @@ class Reservation {
     return this._startAt;
   }
 
-  get formattedStartAt() {
-    return moment(this.startAt).format("MMMM Do YYYY, h:mm a");
-  }
-
   /** formatter for startAt */
 
-  getformattedStartAt() {
+  get formattedStartAt() {
     return moment(this.startAt).format('MMMM Do YYYY, h:mm a');
+  }
+
+  /** methods for setting/getting notes (blank string, not NULL) */
+
+  set notes(val) {
+    this._notes = val || "";
+  }
+
+  get notes() {
+    return this._notes;
+  }
+
+  /** methods for setting/getting customer ID: only set one time */
+
+  set customerId(val) {
+    if (this._customerId && this._customerId !== val)
+      throw new Error("Cannot change customer ID!");
+    this._customerId = val;
+  }
+
+  get customerId() {
+    return this._customerId;
   }
 
   /** given a customer id, find their reservations. */
